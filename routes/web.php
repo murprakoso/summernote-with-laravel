@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +14,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
+Route::get('/', [PostController::class, 'index'])->name('post.index');
+Route::post('/', [PostController::class, 'store'])->name('post.store');
+Route::get('/post/create', [PostController::class, 'create'])->name('post.create');
+Route::get('/post/{id}', [PostController::class, 'show'])->name('post.show');
+
+// summernote callback function
+Route::post('/post/image/upload', [PostController::class, 'uploadImage'])->name('post.image.upload');
+Route::post('/post/image/remove', [PostController::class, 'removeImage'])->name('post.image.remove');
